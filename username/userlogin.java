@@ -1,19 +1,18 @@
  /**************************************************************
  * Program Name   : userloginMR
  * Author         : Miguel Rodriguez
- * Date           : January 29, 2016
+ * Date           : February 7, 2016
  * Course/Section : CSC-264 - 001
  * Program Description: This program creates usernames and passwords
- *    for a user, it then stores that usernames and passwors into
+ *    for a user, it then stores the usernames and passwords into
  *    two different arrays. The maximum value of the array is 10.
- *    These functions are perfom using different methods store in
- *    the class userLog.
+ *    These functions are perfomed using different methods. It then outputs
+ *    the usernames and passwords accordingly.
  * Methods:
  * -------
  *    +main(String[]args)       :void
  *    +username                 :String
  *    +password                 :String
- *    +print                    :void
  **************************************************************/
  import java.util.*;
  public class userlogin
@@ -22,58 +21,56 @@
      /**************************************************************
 	 * Program Name   : userloginMR
 	 * Author         : Miguel Rodriguez
-	 * Date           : January 29, 2016
+	 * Date           : February 7, 2016
 	 * Course/Section : CSC-264 - 001
 	 * Program Description: This program creates usernames and passwords
-	 *    for a user, it then stores that usernames and passwors into
+	 *    for a user, it then stores the usernames and passwords into
 	 *    two different arrays. The maximum value of the array is 10.
-	 *    These functions are perfom using different methods store in
-     *    the class userLog
+	 *    These functions are perfomed using different methods. It then
+	 *    outputs the usernames and passwords accordingly.
 	 *
 	 * BEGIN userLogin
 	 *    create usernameArray and initialize it from 0 to 9
 	 *    create passwordArray and initialize it from 0 to 9
-	 *    Enter the first name or -1 to quit
+	 *    enter the first name or -1 to quit
 	 *    WHILE (firstname is not = -1)
 	 *       Enter the last name or -1 to quit
 	 *       call method username
 	 *       call method password
 	 *    FOR(All indexes in the usernameArray)
 	 *    IF (username = existing username)
-	 *      add the number from 1 to 3 to the username
-	 *      username = newUsername
+	 *       add the number from 1 to 3 to the username
+	 *       username = newUsername
 	 *    END IF
 	 *       store usernames into the usernameArray
 	 *       store passwords into the passwordArray
 	 *       IF(userArray = full)
 	 *          firstname = -1
 	 *       ELSE
-	 *         Enter the firstname or -1
+	 *         enter the firstname or -1
 	 *       END IF
 	 *    END WHILE
-	 *    call method print
 	 * END userLogin
 	 **************************************************************/
 
 	 public static void main(String[] args)
 	 {
 		 //Local constants
-         final int ARRAY_MAX  = 10;
-         final String EXIT    = "-1";
+         final int ARRAY_MAX  = 10;       //stores the maximum size of the arrays
+         final String EXIT    = "-1";     //stores a sentinel to exit the program
+         final int DUP_USER   = 3;        //stores a value that helps avoid duplicate users
 
 		 //Local variables
-		 String fullname = "";    //stores the fullname
-		 String username = "";    //stores the username
-		 String fname    = "";    //stores the fisrtname
-		 String lname    = "";    //stores the last name
-         int randomInt2;          //stores a random integer
-         String passwordf= "";    //stores the final password
-         String usernamef= "";    //stores the final username
-         int count       = 0;     //counts while loop
-         int dNum        = 1;     //creates an uniques username
+		 String fName         = "";       //stores the fisrt name
+		 String lName         = "";       //stores the last name
+         int randomInt2;                  //stores a random integer
+         String passwordF     = "";       //stores the final password
+         String usernameF     = "";       //stores the final username
+         int count            = 0;        //counts the while loop
+         int threeCount       = 0;        //creates an unique username
 
 
-         //creates two arrays and initialize them to 9
+         //creates two arrays and initializes them to 10
 		 String[] usernameArray = new String[ARRAY_MAX];
 	     String[] passwordArray = new String[ARRAY_MAX];
 
@@ -84,30 +81,30 @@
          //creates a space
          System.out.println();
 
-         //ask the user to enter their first name
-	     System.out.print(Util.setLeft(19, "Please enter the firstname or -1 to quit: "));
+         //ask the user to enter a first name
+	     System.out.print(Util.setLeft(20, "Please enter the first name or -1 to quit: "));
 
-	     //stores the firstname into the fname variable
-         fname = Keyboard.readString();
+	     //stores the first name into the fname variable
+         fName = Keyboard.readString();
 
          //checks whether the user enters -1 to quit
-         while(!fname.equals(EXIT))
+         while(!fName.equals(EXIT))
          {
 
 		     //creates a space
 		     System.out.println();
 
-		     //akss the user to enter their last name
-		     System.out.print(Util.setLeft(26, "Please enter the lastname: "));
+		     //asks the user to enter a last name
+		     System.out.print(Util.setLeft(27, "Please enter the last name: "));
 
-		     //stores the lastname into the varible lname
-             lname = Keyboard.readString();
+		     //stores the last name into the varible lname
+             lName = Keyboard.readString();
 
              //clears the screen
              myLib.clrscr();
 
              //calls the method username store in the accounts class
-             usernamef = username(fname,lname);
+             usernameF = username(fName,lName);
 
              //creates a random generator object
              Random rnmGen = new Random();
@@ -123,30 +120,31 @@
                     for(int s = 0; s<usernameArray.length; s++)
                     {
 
-					 //compares the username to the ones in the array
-					 if(usernameArray[s] == usernamef)
-					 {
+					   //compares the username to the ones in the array
+					   if(usernameArray[s] == usernameF)
+					   {
 
-						if(dNum < 3)
-						{
-						//increases by one each time
-						dNum++;
+					      if(threeCount < DUP_USER)
+					      {
+					          //increases by one each time
+					          threeCount++;
 
-						//adds one digit for 1 to 3
-				        usernamef += dNum;
+				              //adds one digit for 1 to 3
+				              usernameF += threeCount;
 
-					    }
-					    else
-					    {
-						 dNum = 0;
-					    }//ends if
+					      }//ends inner if statement
+					      else
+					      {
+							  //restarts the count every three times
+					          threeCount = 0;
+					      }//ends inner else
 
-			         }//ends if
+			           }//ends outer if
 
-				    }//ends the for loop
+				  }//ends for loop
 
-                    //inserts username into the usernameArray
-		 	        usernameArray[j] = usernamef;
+             //inserts username into the usernameArray
+		 	 usernameArray[j] = usernameF;
 
 			    }//ends if statement
 
@@ -154,13 +152,13 @@
 
 
              //calls the method password in class accounts
-		   	 passwordf = password(fname);
+		   	 passwordF = password(fName);
 
              //inserts the passwords
 		     for(int i = 0; i<passwordArray.length; i++)
 			 {
-				//inserts the passwrods into the passwords array
-				passwordArray[i] = passwordf;
+				//inserts the passwords into the passwords array
+				passwordArray[i] = passwordF;
 
 			 }//ends for loop
 
@@ -172,7 +170,7 @@
 			 if (count == ARRAY_MAX)
 			 {
 			    //sets fname to 0
-		        fname = EXIT;
+		        fName = EXIT;
 			 }//ends if
 			 else
 			 {
@@ -181,10 +179,10 @@
 				System.out.println();
 
 				//ask the user to enter their first name
-				System.out.print(Util.setLeft(19, "Please enter the firstname or -1 to quit: "));
+				System.out.print(Util.setLeft(20, "Please enter the first name or -1 to quit: "));
 
-				//stores the firstname into the fname variable
-				fname = Keyboard.readString();
+				//stores the first name into the fname variable
+				fName = Keyboard.readString();
 
 			 }//ends else
 
@@ -205,20 +203,20 @@
             //creates a space
 	        System.out.println();
 
-	      }//ends for loop
+	    }//ends for loop
 
      }//ends main
 
-     /**************************************************************
+      /**************************************************************
 	  * Program Name   : userloginMR
 	  * Author         : Miguel Rodriguez
-	  * Date           : January 29, 2016
+	  * Date           : February 7, 2016
 	  * Course/Section : CSC-264 - 001
 	  * Program Description: This program creates usernames and passwords
-	  *    for a user, it then stores that usernames and passwors into
+	  *    for a user, it then stores that usernames and passwords into
 	  *    two different arrays. The maximum value of the array is 10.
-	  *    These functions are perfom using different methods store in
-	  *    the class userLog
+	  *    These functions are perfom using different methods. It then
+	  *    outputs the usernames accordingly.
 	  *
 	  * BEGIN username(firstname, lastname)
 	  *    create newUsername
@@ -231,7 +229,7 @@
 	  *      store them in username
 	  *    END IF
 	  *    IF (lastname < 3 )
-	  *      fullaname = firstname + lastname
+	  *      fullname = firstname + lastname
 	  *      take the first three letters
 	  *      add them to username
 	  *    ElSE
@@ -240,8 +238,8 @@
 	  *    END IF
 	  *    username.toLowerCase
 	  *    Generate random number in the range of 1 to 3 inclusive
-	  *    add number to username
-	  *      return username
+	  *    add random number to username
+	  *    return username
 	  *    END FOR
 	  * END username
 	  **************************************************************/
@@ -252,11 +250,10 @@
 	      //Local constants
 
 	 	 //local variables
-	 	 String username ="";  //stores the username
-	 	 String fullname ="";  //stores the fullname
-	 	 int randomInt;        //stores the first random number
-	 	 int randomInt2;       //stores the first random number
-	 	 String usernamel="";  //stores the lowercase username
+	 	 String userName   ="";  //stores the username
+	 	 String fullName   ="";  //stores the fullname
+	 	 int randomInt;          //stores the first random number
+	 	 String usernameL  ="";  //stores the lowercase username
 
 
 
@@ -265,17 +262,17 @@
 	 	 if(firstname.length() < 2)
 	 	 {
 	 	    //adds the firstname and the lastname
-	 	    fullname = firstname + lastname;
+	 	    fullName = firstname + lastname;
 
 	         //takes the first two characters of the string
-	 	    username = fullname.substring(0, 2);
+	 	    userName = fullName.substring(0, 2);
 
 	 	 }//ends first if statement
 
 	 	 else
 	 	 {
 	 	    //Takes the first two characters of the firstname
-	 	    username = firstname.substring(0, 2);
+	 	    userName = firstname.substring(0, 2);
 
 	      }//ends first else
 
@@ -283,44 +280,47 @@
 	 	 if(lastname.length() < 3)
 	 	 {
 	 	  	//adds the firstname and the lastname
-	 	  	fullname = firstname + lastname;
+	 	  	fullName = firstname + lastname;
 	 	    //takes the first two characters of fullname
-	 	  	username += fullname.substring(0, 3);
+	 	  	userName += fullName.substring(0, 3);
 
 	 	 }//ends second if statement
 
 	 	 else
 	 	 {
 	 	  	//take first three characters of the lastname
-	 	  	username += lastname.substring(0, 3);
+	 	  	userName += lastname.substring(0, 3);
+
 	 	 }//ends second else
 
-	         //converts the username to lowercase
-	         usernamel =  username.toLowerCase();
+	     //converts the username to lowercase
+	     usernameL =  userName.toLowerCase();
 
-	         //random object
-	         Random rnmGen = new Random();
+	     //random object
+	     Random rnmGen = new Random();
 
-	         //creates a random number in range of 1 to 3 inclusive
-	         randomInt = rnmGen.nextInt(3)+1;
-	         //adds the number to the username
-	         usernamel += randomInt;
+	     //creates a random number in range of 1 to 3 inclusive
+	     randomInt = rnmGen.nextInt(3)+1;
 
-	      //returns the username
-	      return usernamel;
+	     //adds the number to the username
+	     usernameL += randomInt;
+
+	     //returns the username
+	     return usernameL;
+
 	  }//ends username method
 
 
 	  /**************************************************************
 	  * Program Name   : userloginMR
 	  * Author         : Miguel Rodriguez
-	  * Date           : January 29, 2016
+	  * Date           : Feb 7, 2016
 	  * Course/Section : CSC-264 - 001
 	  * Program Description: This program creates usernames and passwords
-	  *    for a user, it then stores that usernames and passwors into
+	  *    for a user, it then stores that usernames and passwords into
 	  *    two different arrays. The maximum value of the array is 10.
-	  *    These functions are perfom using different methods store in
-	  *    the class userLog
+	  *    These functions are perfomed using different methods. It then
+	  *    outputs the usernames and passwords accordingly.
 	  *
 	  *	 BEGIN password(firstname)
 	  *	     password = firstname.toLowerCase
@@ -329,22 +329,19 @@
 	  **************************************************************/
 	  public static String password(String firstname)
 	  {
-	   String password   ="";  //stores the password
-	   String firstnamel ="";  //stores the lowercase firstname
+	     String password   ="";  //stores the password
+	     String firstnamel ="";  //stores the lowercase firstname
 
-	   //converts the firstname to lowercase
-	   firstnamel = firstname.toLowerCase();
-	   //stores the lowercase firstname into password
-	   password = firstnamel;
+	     //converts the firstname to lowercase
+	     firstnamel = firstname.toLowerCase();
 
-	   //returns password
-	   return password;
+	     //stores the lowercase firstname into password
+	     password = firstnamel;
 
-      }//ends password method
+	     //returns password
+	     return password;
 
-
-
-
+     }//ends password method
 
   }//ends userlogin
 
