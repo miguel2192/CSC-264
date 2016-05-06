@@ -1,0 +1,3 @@
+jwig login to the system.
+jwig changed password.
+jwig logout of the system.
